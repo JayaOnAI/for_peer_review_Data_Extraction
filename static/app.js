@@ -88,12 +88,13 @@ function hideStatus(id) {
 
 // ── Parse JSON from Claude response ──────────────────────────────
 function extractJSON(text) {
-  // strip markdown code fences
   let cleaned = text.replace(/```json\s*/gi, "").replace(/```\s*/gi, "").trim();
-  // find JSON array or object
-  const arrMatch = cleaned.match(/(\[[\s\S]*\])/);
+  // Try direct parse first (handles both arrays and objects cleanly)
+  try { return JSON.parse(cleaned); } catch (_) {}
+  // Fall back: find outermost object first, then array
   const objMatch = cleaned.match(/(\{[\s\S]*\})/);
-  const raw = (arrMatch || objMatch || [])[1];
+  const arrMatch = cleaned.match(/(\[[\s\S]*\])/);
+  const raw = (objMatch || arrMatch || [])[1];
   if (!raw) throw new Error("No JSON found in response");
   return JSON.parse(raw);
 }
