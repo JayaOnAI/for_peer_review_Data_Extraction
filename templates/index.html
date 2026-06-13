@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MealMind – AI Meal Planner</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">🍽️</span>
+      <span class="logo-text">MealMind</span>
+    </div>
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="pantry">🥫 My Pantry</button>
+      <button class="tab-btn" data-tab="suggest">🔍 Suggest Recipes</button>
+      <button class="tab-btn" data-tab="weekly">📅 Week Planner</button>
+      <button class="tab-btn" data-tab="grocery">🛒 Grocery List</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ── Main ───────────────────────────────────────────────────── -->
+<main class="container">
+
+  <!-- ── PANTRY TAB ───────────────────────────────────────────── -->
+  <section id="tab-pantry" class="tab-content active">
+    <div class="section-hero">
+      <h1>What's in your kitchen?</h1>
+      <p>Tell us what you have and we'll plan around it.</p>
+    </div>
+
+    <div class="two-col">
+      <!-- Staples -->
+      <div class="card">
+        <h2 class="card-title">🧂 Staples</h2>
+        <p class="card-sub">Oils, flour, rice, lentils, spices, condiments…</p>
+        <div class="tag-input-wrap">
+          <input type="text" id="staple-input" class="tag-input" placeholder="Type a staple and press Enter"/>
+          <button class="btn-add" id="add-staple">Add</button>
+        </div>
+        <div class="tag-cloud" id="staples-cloud"></div>
+        <div class="quick-add">
+          <span class="quick-label">Quick add:</span>
+          <button class="quick-btn" data-list="staples" data-val="Olive Oil">Olive Oil</button>
+          <button class="quick-btn" data-list="staples" data-val="Basmati Rice">Basmati Rice</button>
+          <button class="quick-btn" data-list="staples" data-val="Salt & Pepper">Salt & Pepper</button>
+          <button class="quick-btn" data-list="staples" data-val="Flour">Flour</button>
+          <button class="quick-btn" data-list="staples" data-val="Soy Sauce">Soy Sauce</button>
+          <button class="quick-btn" data-list="staples" data-val="Cumin">Cumin</button>
+          <button class="quick-btn" data-list="staples" data-val="Turmeric">Turmeric</button>
+          <button class="quick-btn" data-list="staples" data-val="Garlic">Garlic</button>
+          <button class="quick-btn" data-list="staples" data-val="Ginger">Ginger</button>
+          <button class="quick-btn" data-list="staples" data-val="Onions">Onions</button>
+        </div>
+      </div>
+
+      <!-- Groceries -->
+      <div class="card">
+        <h2 class="card-title">🛍️ Fresh Groceries</h2>
+        <p class="card-sub">Vegetables, fruits, meat, dairy you currently have.</p>
+        <div class="tag-input-wrap">
+          <input type="text" id="grocery-input" class="tag-input" placeholder="Type a grocery item and press Enter"/>
+          <button class="btn-add" id="add-grocery">Add</button>
+        </div>
+        <div class="tag-cloud" id="groceries-cloud"></div>
+        <div class="quick-add">
+          <span class="quick-label">Quick add:</span>
+          <button class="quick-btn" data-list="groceries" data-val="Chicken">Chicken</button>
+          <button class="quick-btn" data-list="groceries" data-val="Tomatoes">Tomatoes</button>
+          <button class="quick-btn" data-list="groceries" data-val="Spinach">Spinach</button>
+          <button class="quick-btn" data-list="groceries" data-val="Eggs">Eggs</button>
+          <button class="quick-btn" data-list="groceries" data-val="Milk">Milk</button>
+          <button class="quick-btn" data-list="groceries" data-val="Bell Peppers">Bell Peppers</button>
+          <button class="quick-btn" data-list="groceries" data-val="Potatoes">Potatoes</button>
+          <button class="quick-btn" data-list="groceries" data-val="Lentils">Lentils</button>
+          <button class="quick-btn" data-list="groceries" data-val="Paneer">Paneer</button>
+          <button class="quick-btn" data-list="groceries" data-val="Salmon">Salmon</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cuisine Preferences -->
+    <div class="card mt-20">
+      <h2 class="card-title">🌍 Cuisine Preferences</h2>
+      <p class="card-sub">Select all cuisines you'd like in your meal plan.</p>
+      <div class="cuisine-grid" id="cuisine-grid">
+        <label class="cuisine-card"><input type="checkbox" value="Indian" checked/><span class="cuisine-flag">🇮🇳</span><span>Indian</span></label>
+        <label class="cuisine-card"><input type="checkbox" value="Western"/><span class="cuisine-flag">🍔</span><span>Western</span></label>
+        <label class="cuisine-card"><input type="checkbox" value="Iranian"/><span class="cuisine-flag">🇮🇷</span><span>Iranian</span></label>
+        <label class="cuisine-card"><input type="checkbox" value="Chinese"/><span class="cuisine-flag">🇨🇳</span><span>Chinese</span></label>
+        <label class="cuisine-card"><input type="checkbox" value="Italian"/><span class="cuisine-flag">🇮🇹</span><span>Italian</span></label>
+        <label class="cuisine-card"><input type="checkbox" value="Mexican"/><span class="cuisine-flag">🇲🇽</span><span>Mexican</span></label>
+        <label class="cuisine-card"><input type="checkbox" value="Thai"/><span class="cuisine-flag">🇹🇭</span><span>Thai</span></label>
+        <label class="cuisine-card"><input type="checkbox" value="Japanese"/><span class="cuisine-flag">🇯🇵</span><span>Japanese</span></label>
+        <label class="cuisine-card"><input type="checkbox" value="Mediterranean"/><span class="cuisine-flag">🫒</span><span>Mediterranean</span></label>
+        <label class="cuisine-card"><input type="checkbox" value="American"/><span class="cuisine-flag">🦅</span><span>American</span></label>
+      </div>
+    </div>
+
+    <div class="action-row mt-20">
+      <button class="btn-primary" onclick="switchTab('suggest')">🔍 Find Recipes →</button>
+      <button class="btn-secondary" onclick="switchTab('weekly')">📅 Plan My Week →</button>
+    </div>
+  </section>
+
+  <!-- ── SUGGEST RECIPES TAB ──────────────────────────────────── -->
+  <section id="tab-suggest" class="tab-content">
+    <div class="section-hero">
+      <h1>Recipe Suggestions</h1>
+      <p>AI-powered recipes tailored to your pantry.</p>
+    </div>
+
+    <div class="card filter-card">
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Meal Type</label>
+          <select id="meal-type-select" class="select-input">
+            <option value="any meal">Any Meal</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="snack">Snack</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Number of Suggestions</label>
+          <select id="num-suggest-select" class="select-input">
+            <option value="2">2 recipes</option>
+            <option value="3" selected>3 recipes</option>
+            <option value="5">5 recipes</option>
+          </select>
+        </div>
+        <button class="btn-primary" id="btn-suggest" onclick="suggestRecipes()">✨ Suggest Recipes</button>
+      </div>
+    </div>
+
+    <div id="suggest-status" class="status-bar hidden"></div>
+    <div id="recipes-grid" class="recipes-grid"></div>
+  </section>
+
+  <!-- ── WEEKLY PLANNER TAB ────────────────────────────────────── -->
+  <section id="tab-weekly" class="tab-content">
+    <div class="section-hero">
+      <h1>Weekly Meal Planner</h1>
+      <p>A full week of balanced, varied meals crafted just for you.</p>
+    </div>
+
+    <div class="card filter-card">
+      <div class="filter-row">
+        <div class="filter-group">
+          <label>Number of People</label>
+          <select id="num-people-select" class="select-input">
+            <option value="1">1 person</option>
+            <option value="2" selected>2 people</option>
+            <option value="3">3 people</option>
+            <option value="4">4 people</option>
+            <option value="6">6 people</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Dietary Restrictions</label>
+          <select id="dietary-select" class="select-input" multiple>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegan">Vegan</option>
+            <option value="gluten-free">Gluten-Free</option>
+            <option value="dairy-free">Dairy-Free</option>
+            <option value="nut-free">Nut-Free</option>
+          </select>
+        </div>
+        <button class="btn-primary" id="btn-plan-week" onclick="planWeek()">📅 Plan My Week</button>
+      </div>
+    </div>
+
+    <div id="week-status" class="status-bar hidden"></div>
+    <div id="week-grid" class="week-grid hidden"></div>
+  </section>
+
+  <!-- ── GROCERY LIST TAB ──────────────────────────────────────── -->
+  <section id="tab-grocery" class="tab-content">
+    <div class="section-hero">
+      <h1>Grocery Checklist</h1>
+      <p>Auto-generated shopping list based on your selected recipes.</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Selected Recipes</h2>
+      <div id="selected-recipes-list" class="selected-recipes-list">
+        <p class="empty-msg">No recipes selected yet. <a href="#" onclick="switchTab('suggest')">Suggest some recipes first →</a></p>
+      </div>
+    </div>
+
+    <div class="action-row mt-20">
+      <button class="btn-primary" id="btn-gen-grocery">🛒 Generate Grocery List</button>
+    </div>
+
+    <div id="grocery-status" class="status-bar hidden"></div>
+    <div id="grocery-output" class="grocery-output hidden"></div>
+  </section>
+
+</main>
+
+<!-- ── Recipe Detail Modal ──────────────────────────────────────── -->
+<div id="recipe-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script src="/static/recipes_data.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
